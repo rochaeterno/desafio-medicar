@@ -59,7 +59,7 @@ class ConsultaSerializer(serializers.ModelSerializer):
         return (model_to_dict(obj.agenda.medico))
 
     def get_dia(self, obj):
-        return (obj.agenda.dia)
+        return (obj.agenda.dia.strftime('%d/%m/%Y'))
 
     def get_horario(self, obj):
         return (obj.horario.horario)
