@@ -1,6 +1,8 @@
 import email
+from enum import unique
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Especialidade(models.Model):
@@ -8,6 +10,9 @@ class Especialidade(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.nome
 
 
 class Medico(models.Model):
@@ -19,10 +24,22 @@ class Medico(models.Model):
         null=True,
         blank=False
     )
+    crm = models.PositiveSmallIntegerField(
+        null=False,
+        blank=False,
+        unique=True,
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(9999)
+        ]
+    )
     email = models.EmailField(max_length=255, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.nome
 
 
 class Horario(models.Model):
@@ -30,6 +47,9 @@ class Horario(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.horario
 
 
 class Agenda(models.Model):
@@ -48,6 +68,9 @@ class Agenda(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.dia
 
 
 class Consulta(models.Model):

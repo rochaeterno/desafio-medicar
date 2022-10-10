@@ -1,31 +1,46 @@
 from django.contrib import admin
-from medicar.models import Especialidade, Medico, Horario, Agenda, Consulta
-from django.contrib.auth.models import User
+from medicar.models import Especialidade, Medico, Horario, Agenda
 
-class Users(admin.ModelAdmin):
-    list_display = ('id', 'name')
-    list_display_links = ('id', 'name')
-    search_fields = ('id', 'name')
 
 class Especialidades(admin.ModelAdmin):
     list_display = ('id', 'nome')
     list_display_links = ('id', 'nome')
     search_fields = ('id', 'nome')
+    readonly_fields = ('created_at', 'updated_at', 'deleted_at')
+    exclude = ('deleted_at',)
+
 
 class Medicos(admin.ModelAdmin):
-    list_display = ('id', 'nome')
-    list_display_links = ('id', 'nome')
+    list_display = ('id', 'nome', 'get_especialidade')
+    list_display_links = ('id', 'nome', 'get_especialidade')
     search_fields = ('id', 'nome')
+    readonly_fields = ('created_at', 'updated_at', 'deleted_at')
+    exclude = ('deleted_at',)
+
+    @admin.display(ordering='especialidade__nome', description='Especialidade')
+    def get_especialidade(self, obj):
+        return obj.especialidade.nome
+
 
 class Horarios(admin.ModelAdmin):
     list_display = ('id', 'horario')
     list_display_links = ('id', 'horario')
     search_fields = ('id', 'horario')
+    readonly_fields = ('created_at', 'updated_at', 'deleted_at')
+    exclude = ('deleted_at',)
+
 
 class Agendas(admin.ModelAdmin):
-    list_display = ('id', 'dia')
-    list_display_links = ('id', 'dia')
+    list_display = ('id', 'dia', 'get_medico')
+    list_display_links = ('id', 'dia', 'get_medico')
     search_fields = ('id', 'dia')
+    readonly_fields = ('created_at', 'updated_at', 'deleted_at')
+    exclude = ('deleted_at',)
+
+    @admin.display(ordering='medico__nome', description='Medico')
+    def get_medico(self, obj):
+        return obj.medico.nome
+
 
 admin.site.register(Medico, Medicos)
 admin.site.register(Especialidade, Especialidades)
