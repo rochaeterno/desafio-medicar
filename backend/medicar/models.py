@@ -49,7 +49,7 @@ class Horario(models.Model):
     deleted_at = models.DateTimeField(null=True)
 
     def __str__(self):
-        return self.horario
+        return str(self.horario)
 
 
 class Agenda(models.Model):
@@ -70,7 +70,7 @@ class Agenda(models.Model):
     deleted_at = models.DateTimeField(null=True)
 
     def __str__(self):
-        return self.dia
+        return str(self.dia)
 
 
 class Consulta(models.Model):
