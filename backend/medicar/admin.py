@@ -30,15 +30,21 @@ class Horarios(admin.ModelAdmin):
     exclude = ('deleted_at',)
 
 
+class HorariosInline(admin.TabularInline):
+    model = Agenda.horarios.through
+
+
 class Agendas(admin.ModelAdmin):
+    inlines = [HorariosInline]
     list_display = ('id', 'dia', 'get_medico')
     list_display_links = ('id', 'dia', 'get_medico')
     search_fields = ('id', 'dia')
     readonly_fields = ('created_at', 'updated_at')
-    exclude = ('deleted_at',)
+    exclude = ('deleted_at', 'horarios')
 
     @admin.display(ordering='medico__nome', description='Medico')
     def get_medico(self, obj):
+        print(Agenda)
         return obj.medico.nome
 
 

@@ -1,9 +1,11 @@
 from django.db.models import Q
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from datetime import date, datetime
 from medicar.models import Consulta, Agenda
 from medicar.serializer import ConsultaSerializer, AgendaSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from medicar.filtersets import AgendaFilter
 
 
 class ConsultaViewSet(viewsets.ModelViewSet):
@@ -31,7 +33,17 @@ class AgendaViewSet(viewsets.ModelViewSet):
 
     def list(self, request):
         query = Agenda.objects.filter(
-            dia__gte=date.today()
+            dia__gte=date.today(), _esta_lotada=False
         ).order_by('dia')
+        self.filter_queryset(query)
         serializer = AgendaSerializer(query, many=True)
         return Response(serializer.data)
+
+
+class AgendaFilter(generics.ListAPIView):
+    queryset = Agenda.objects.filter(
+        dia__gte=date.today(), _esta_lotada=False
+    ).order_by('dia')
+    serializer_class = AgendaSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = AgendaFilter

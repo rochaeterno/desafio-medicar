@@ -1,4 +1,4 @@
-import email
+from email.policy import default
 from enum import unique
 from django.db import models
 from django.contrib.auth.models import User
@@ -61,12 +61,19 @@ class Agenda(models.Model):
         null=False,
         blank=False
     )
-    horarios = models.ManyToManyField(Horario)
+    horarios = models.ManyToManyField(Horario, through='AgendaHorario',)
+    _esta_lotada = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.dia)
+
+
+class AgendaHorario(models.Model):
+    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE)
+    horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
+    _esta_ocupado = models.BooleanField(default=False)
 
 
 class Consulta(models.Model):
