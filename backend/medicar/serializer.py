@@ -2,6 +2,7 @@ from asyncore import read
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.forms.models import model_to_dict
+from datetime import datetime
 from medicar.models import Especialidade, Medico, Horario, Agenda, Consulta
 
 
@@ -20,7 +21,7 @@ class EspecialidadeSerializer(serializers.ModelSerializer):
 class MedicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medico
-        fields = ['id', 'crm', 'nome', 'email', 'created_at', 'updated_at']
+        fields = ['id', 'crm', 'nome', 'email']
 
 
 class HorarioSerializer(serializers.ModelSerializer):
@@ -30,13 +31,28 @@ class HorarioSerializer(serializers.ModelSerializer):
 
 
 class AgendaSerializer(serializers.ModelSerializer):
-    horarios = HorarioSerializer(read_only=True, many=True)
+    horarios = serializers.SerializerMethodField()
     medico = MedicoSerializer(many=False, read_only=True)
+    dia = serializers.SerializerMethodField()
 
     class Meta:
         model = Agenda
         fields = ['id', 'medico', 'dia',
                   'horarios', 'created_at', 'updated_at']
+
+    def get_dia(self, obj):
+        return (obj.dia.strftime('%d/%m/%Y'))
+
+    def get_horarios(self, obj):
+        horarios_validos = []
+        horarios_preenchidos = []
+
+        for instance in obj.consultas.all():
+            horarios_preenchidos.append(instance.horario.horario)
+        for instance in obj.horarios.all():
+            if instance.horario >= datetime.now().time():
+                horarios_validos.append(instance.horario)
+        return (set(horarios_validos) - set(horarios_preenchidos))
 
 
 class ConsultaSerializer(serializers.ModelSerializer):

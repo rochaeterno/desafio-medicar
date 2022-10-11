@@ -9,7 +9,6 @@ class Especialidade(models.Model):
     nome = models.CharField(max_length=100, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.nome
@@ -36,7 +35,6 @@ class Medico(models.Model):
     email = models.EmailField(max_length=255, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.nome
@@ -46,7 +44,6 @@ class Horario(models.Model):
     horario = models.TimeField(auto_now=False, auto_now_add=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
 
     def __str__(self):
         return str(self.horario)
@@ -67,7 +64,6 @@ class Agenda(models.Model):
     horarios = models.ManyToManyField(Horario)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
 
     def __str__(self):
         return str(self.dia)
@@ -97,4 +93,3 @@ class Consulta(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
