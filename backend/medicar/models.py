@@ -41,7 +41,7 @@ class Medico(models.Model):
 
 
 class Horario(models.Model):
-    horario = models.TimeField(auto_now=False, auto_now_add=False)
+    horario = models.TimeField(auto_now=False, auto_now_add=False, unique=True,)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
