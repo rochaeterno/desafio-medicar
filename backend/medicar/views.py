@@ -27,20 +27,7 @@ class ConsultaViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class AgendaViewSet(viewsets.ModelViewSet):
-    queryset = Agenda.objects.all()
-    serializer_class = AgendaSerializer
-
-    def list(self, request):
-        query = Agenda.objects.filter(
-            dia__gte=date.today(), _esta_lotada=False
-        ).order_by('dia')
-        self.filter_queryset(query)
-        serializer = AgendaSerializer(query, many=True)
-        return Response(serializer.data)
-
-
-class AgendaFilter(generics.ListAPIView):
+class AgendaListAPIView(generics.ListAPIView):
     queryset = Agenda.objects.filter(
         dia__gte=date.today(), _esta_lotada=False
     ).order_by('dia')
