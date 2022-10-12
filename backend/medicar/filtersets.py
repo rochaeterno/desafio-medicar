@@ -1,4 +1,5 @@
 import django_filters
+from backend.medicar.models import Especialidade
 from medicar.models import Agenda, Medico
 
 
@@ -11,6 +12,11 @@ class AgendaFilter(django_filters.FilterSet):
     crm = django_filters.ModelMultipleChoiceFilter(
         field_name='medico__crm',
         to_field_name='crm',
+        queryset=Medico.objects.all()
+    )
+    especialidade = django_filters.ModelMultipleChoiceFilter(
+        field_name='medico__especialidade_id',
+        to_field_name='especialidade_id',
         queryset=Medico.objects.all()
     )
     data_inicio = django_filters.DateFilter(
