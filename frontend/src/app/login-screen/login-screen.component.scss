@@ -1,0 +1,30 @@
+.screen-container {
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.form-content {
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 30vh;
+}
+
+.screen-header {
+    align-self: center;
+}
+
+.form-container {
+    width: 100%;
+    height: auto;
+}
+
+.logo-img {
+    width: 50%;
+    height: auto;
+    margin-bottom: 2rem;
+}

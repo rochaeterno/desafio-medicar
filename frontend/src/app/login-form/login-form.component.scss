@@ -1,0 +1,32 @@
+.form-container {
+    display: grid;
+    flex-direction: column;
+}
+
+.form-fields {
+    display: grid;
+    flex-direction: column;
+}
+
+.form-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: space-around;
+}
+
+.form-button {
+    width: 49%;
+}
+
+.create-account-button {
+    color: rgba(73, 180, 187, 1);
+}
+
+.login-button {
+    background-color: rgba(73, 180, 187, 1);
+    color: #FFFFFF;
+}
