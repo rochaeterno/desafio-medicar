@@ -3,7 +3,7 @@ from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from datetime import date, datetime
 from medicar.models import Consulta, Agenda
-from medicar.serializer import ConsultaSerializer, AgendaSerializer
+from medicar.serializer import ConsultaSerializer, AgendaSerializer, ConsultaStoreSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from medicar.filtersets import AgendaFilter
 
@@ -11,6 +11,18 @@ from medicar.filtersets import AgendaFilter
 class ConsultaViewSet(viewsets.ModelViewSet):
     queryset = Consulta.objects.all()
     serializer_class = ConsultaSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = ConsultaStoreSerializer(
+            data=request.data, context={"req": request})
+        data = {}
+        if serializer.is_valid():
+            consulta = serializer.save()
+            data = consulta
+        else:
+            data = serializer.errors
+
+        return Response(data)
 
     def list(self, request):
         query = Consulta.objects.filter(
