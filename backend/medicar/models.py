@@ -1,13 +1,17 @@
-import email
+from email.policy import default
+from enum import unique
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Especialidade(models.Model):
     nome = models.CharField(max_length=100, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.nome
 
 
 class Medico(models.Model):
@@ -19,17 +23,30 @@ class Medico(models.Model):
         null=True,
         blank=False
     )
+    crm = models.PositiveSmallIntegerField(
+        null=False,
+        blank=False,
+        unique=True,
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(9999)
+        ]
+    )
     email = models.EmailField(max_length=255, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return self.nome
 
 
 class Horario(models.Model):
     horario = models.TimeField(auto_now=False, auto_now_add=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return str(self.horario)
 
 
 class Agenda(models.Model):
@@ -44,10 +61,19 @@ class Agenda(models.Model):
         null=False,
         blank=False
     )
-    horarios = models.ManyToManyField(Horario)
+    horarios = models.ManyToManyField(Horario, through='AgendaHorario',)
+    _esta_lotada = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return str(self.dia)
+
+
+class AgendaHorario(models.Model):
+    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE)
+    horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
+    _esta_ocupado = models.BooleanField(default=False)
 
 
 class Consulta(models.Model):
@@ -74,4 +100,3 @@ class Consulta(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)

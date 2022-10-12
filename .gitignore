@@ -51,3 +51,6 @@ docs/_build/
 
 # .virtual enviroment from backend
 venv/
+
+# Database
+.sqlite3
