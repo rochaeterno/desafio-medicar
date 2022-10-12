@@ -3,6 +3,13 @@
     flex-direction: column;
 }
 
+.form-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
 .form-fields {
     display: grid;
     flex-direction: column;
@@ -24,19 +31,15 @@
     font-weight: 700;
 }
 
-.create-account-button {
+.cancel-button {
     color: rgba(73, 180, 187, 1);
 }
 
-.login-button {
+.confirm-button {
     background-color: rgba(73, 180, 187, 1);
     color: #FFFFFF;
 }
 
 .mat-form-field {
     margin-bottom: -1rem;
-}
-
-.remember-checkbox {
-    margin-left: .2rem;
 }
