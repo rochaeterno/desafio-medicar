@@ -118,7 +118,7 @@ class ConsultaStoreSerializer(serializers.Serializer):
                 {'message': 'O horário selecionado não existe.'})
 
         """
-        Responsavel por testar se a agenda selecionada esta 
+        Responsavel por testar se a agenda selecionada esta
         relacionada com o horario selecionado e se este por sua vez
         está livre.
         """
@@ -147,9 +147,25 @@ class ConsultaStoreSerializer(serializers.Serializer):
         horario_instance = Horario.objects.get(horario=horario)
         paciente = User.objects.get(pk=1)
 
-        consulta = Consulta(agenda=agenda, horario=horario_instance, paciente=paciente)
+        consulta = Consulta(
+            agenda=agenda, horario=horario_instance, paciente=paciente)
         AgendaHorario.objects.filter(
             agenda_id=agenda_id, horario_id=horario_instance.id).update(_esta_ocupado=True)
         consulta.save()
-        
+
         return ConsultaSerializer(consulta).data
+
+
+class ConsultaDestroySerializer(serializers.Serializer):
+    def validate(self, data):
+        consulta = {}
+        try:
+            consulta = Consulta.objects.get(id=self.context['pk'])
+        except ObjectDoesNotExist:
+            raise ValidationError(
+                {'message': 'Esta consulta não existe em nosso banco de dados.'})
+
+        if consulta.agenda.dia < date.today() or consulta.agenda.dia == date.today() and consulta.horario <= datetime.now().time():
+            raise serializers.ValidationError(
+                {'message': 'Não é possivel desmarcar uma consulta que já aconteceu.'})
+        return data
