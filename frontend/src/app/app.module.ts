@@ -19,6 +19,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateConsultaFormComponent } from './create-consulta-form/create-consulta-form.component';
 import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
+import { ListConsultasService } from './list-consultas/list-consultas.service';
+import { CreateConsultaFormServiceService } from './create-consulta-form/create-consulta-form-service.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -42,9 +47,15 @@ import { MatSelectModule } from '@angular/material/select';
     MatCheckboxModule,
     MatTableModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    ListConsultasService,
+    CreateConsultaFormServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

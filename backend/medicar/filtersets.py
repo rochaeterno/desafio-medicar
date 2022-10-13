@@ -1,6 +1,5 @@
 import django_filters
-from backend.medicar.models import Especialidade
-from medicar.models import Agenda, Medico
+from medicar.models import Agenda, Medico, Especialidade
 
 
 class AgendaFilter(django_filters.FilterSet):
@@ -26,3 +25,15 @@ class AgendaFilter(django_filters.FilterSet):
     class Meta:
         model = Agenda
         fields = ['medico', 'dia']
+
+
+class MedicoFilter(django_filters.FilterSet):
+    especialidade = django_filters.ModelMultipleChoiceFilter(
+        field_name='id',
+        to_field_name='id',
+        queryset=Especialidade.objects.all()
+    )
+
+    class Meta:
+        model = Medico
+        fields = ['especialidade']

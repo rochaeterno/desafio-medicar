@@ -19,9 +19,14 @@ class EspecialidadeSerializer(serializers.ModelSerializer):
 
 
 class MedicoSerializer(serializers.ModelSerializer):
+    especialidade = serializers.SerializerMethodField()
+
     class Meta:
         model = Medico
-        fields = ['id', 'crm', 'nome', 'email']
+        fields = ['id', 'crm', 'nome', 'email', 'especialidade']
+
+    def get_especialidade(self, obj):
+        return (model_to_dict(obj.especialidade))
 
 
 class HorarioSerializer(serializers.ModelSerializer):
@@ -67,7 +72,7 @@ class AgendaSerializer(serializers.ModelSerializer):
 
 
 class ConsultaSerializer(serializers.ModelSerializer):
-    medico = serializers.SerializerMethodField()
+    medico = MedicoSerializer(source='agenda.medico')
     dia = serializers.SerializerMethodField()
     horario = serializers.SerializerMethodField()
     data_agendamento = serializers.DateTimeField(source='created_at')
@@ -82,8 +87,8 @@ class ConsultaSerializer(serializers.ModelSerializer):
             'medico'
         ]
 
-    def get_medico(self, obj):
-        return (model_to_dict(obj.agenda.medico))
+    # def get_medico(self, obj):
+    #     return model_to_dict(obj.agenda.medico)
 
     def get_dia(self, obj):
         return (obj.agenda.dia.strftime('%d/%m/%Y'))

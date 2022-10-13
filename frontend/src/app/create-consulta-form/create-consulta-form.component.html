@@ -1,45 +1,47 @@
 <div class="dialog-container">
-    <div class="form-content">
-        <div class="form-title">
-            Nova Consulta
+    <form #createConsulta="ngForm" (ngSubmit)="onSubmit(createConsulta)">
+        <div class="form-content">
+            <div class="form-title">
+                Nova Consulta
+            </div>
+            <div class="form-fields">
+                <mat-form-field appearance="outline" class="select-specialization-field form-input">
+                    <mat-label>Especialidade</mat-label>
+                    <mat-select (selectionChange)="especialidadesChange($event.value)" [(ngModel)]="new_consulta.especialidade_id" name="especialidade" required>
+                        <mat-option *ngFor="let especialidade of especialidades" [value]="especialidade.id">
+                            {{especialidade.nome}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="select-doctor-field form-input">
+                    <mat-label>Medico</mat-label>
+                    <mat-select (selectionChange)="medicoChange($event.value)" [disabled]="medicos.length <= 0" [(ngModel)]="new_consulta.medico" name="medico" required>
+                        <mat-option *ngFor="let medico of medicos" [value]="medico.id">
+                            {{medico.nome}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="select-date-field form-input">
+                    <mat-label>Datas Disponiveis</mat-label>
+                    <mat-select (selectionChange)="diaChange($event.value)" [disabled]="agendas.length <= 0" [(ngModel)]="new_consulta.agenda_id" name="dia" required>
+                        <mat-option *ngFor="let agenda of agendas" [value]="agenda.id">
+                            {{agenda.dia}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="select-hour-field form-input">
+                    <mat-label>Horários Disponiveis</mat-label>
+                    <mat-select [disabled]="horarios.length <= 0" [(ngModel)]="new_consulta.horario" name="horario" required>
+                        <mat-option *ngFor="let horario of horarios" [value]="horario">
+                            {{horario}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-buttons">
+                <button mat-button class="form-button cancel-button" (click)="closeDialog()">Cancelar</button>
+                <button type="submit" mat-flat-button color="success" class="form-button confirm-button" [disabled]="createConsulta.invalid">Confirmar</button>
+            </div>
         </div>
-        <div class="form-fields">
-            <mat-form-field appearance="outline" class="select-specialization-field form-input">
-                <mat-label>Especialidade</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="select-doctor-field form-input">
-                <mat-label>Medico</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="select-date-field form-input">
-                <mat-label>Datas Disponiveis</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="select-hour-field form-input">
-                <mat-label>Horários Disponiveis</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let food of foods" [value]="food.value">
-                        {{food.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="form-buttons">
-            <button mat-button class="form-button cancel-button" (click)="closeDialog()">Cancelar</button>
-            <button mat-flat-button color="success" class="form-button confirm-button">Confirmar</button>
-        </div>
-    </div>
+    </form>
 </div>
