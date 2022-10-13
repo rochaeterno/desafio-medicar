@@ -2,10 +2,10 @@ from django.db.models import Q
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from datetime import date, datetime
-from medicar.models import Consulta, Agenda, AgendaHorario
-from medicar.serializer import ConsultaSerializer, AgendaSerializer, ConsultaStoreSerializer, ConsultaDestroySerializer
+from medicar.models import Consulta, Agenda, AgendaHorario, Especialidade, Medico
+from medicar.serializer import ConsultaSerializer, AgendaSerializer, ConsultaStoreSerializer, ConsultaDestroySerializer, EspecialidadeSerializer, MedicoSerializer
 from django_filters.rest_framework import DjangoFilterBackend
-from medicar.filtersets import AgendaFilter
+from medicar.filtersets import AgendaFilter, MedicoFilter
 
 
 class ConsultaViewSet(viewsets.ModelViewSet):
@@ -65,3 +65,15 @@ class AgendaListAPIView(generics.ListAPIView):
     serializer_class = AgendaSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = AgendaFilter
+
+
+class EspecialidadesListAPIView(generics.ListAPIView):
+    queryset = Especialidade.objects.all().order_by('id')
+    serializer_class = EspecialidadeSerializer
+
+
+class MedicosListAPIView(generics.ListAPIView):
+    queryset = Medico.objects.all().order_by('id')
+    serializer_class = MedicoSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = MedicoFilter
