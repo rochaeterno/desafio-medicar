@@ -12,13 +12,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SignupFormComponent } from './signup-form/signup-form.component';
+import { HomeScreenComponent } from './home-screen/home-screen.component';
+import { HomeScreenHeaderComponent } from './home-screen-header/home-screen-header.component';
+import { ListConsultasComponent } from './list-consultas/list-consultas.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginScreenComponent,
     LoginFormComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    HomeScreenComponent,
+    HomeScreenHeaderComponent,
+    ListConsultasComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +35,8 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

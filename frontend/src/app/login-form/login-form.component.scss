@@ -1,27 +1,5 @@
-.form-container {
-    display: grid;
-    flex-direction: column;
-}
-
-.form-fields {
-    display: grid;
-    flex-direction: column;
-}
-
-.form-buttons {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-content: space-around;
-}
-
-.form-button {
-    font-size: 1.1rem;
-    width: 49%;
-    font-weight: 700;
+.remember-checkbox {
+    margin-left: .2rem;
 }
 
 .create-account-button {
@@ -33,10 +11,8 @@
     color: #FFFFFF;
 }
 
-.mat-form-field {
-    margin-bottom: -1rem;
-}
-
-.remember-checkbox {
-    margin-left: .2rem;
+.form-button {
+    font-size: 1.1rem;
+    width: 49%;
+    font-weight: 700;
 }
