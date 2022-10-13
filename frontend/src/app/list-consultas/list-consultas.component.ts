@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CreateConsultaFormComponent } from '../create-consulta-form/create-consulta-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface PeriodicElement {
   name: string;
@@ -26,12 +28,17 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./list-consultas.component.scss']
 })
 export class ListConsultasComponent {
+  constructor(private dialog: MatDialog) { }
   displayedColumns: string[] = [
-    'Especialidade', 
-    'Profissional', 
-    'Data', 
-    'Hora', 
+    'Especialidade',
+    'Profissional',
+    'Data',
+    'Hora',
     'actions'
   ];
   dataSource = ELEMENT_DATA;
+
+  createConsulta() {
+    this.dialog.open(CreateConsultaFormComponent);
+  }
 }
