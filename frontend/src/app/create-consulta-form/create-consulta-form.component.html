@@ -1,0 +1,45 @@
+<div class="dialog-container">
+    <div class="form-content">
+        <div class="form-title">
+            Nova Consulta
+        </div>
+        <div class="form-fields">
+            <mat-form-field appearance="outline" class="select-specialization-field form-input">
+                <mat-label>Especialidade</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="select-doctor-field form-input">
+                <mat-label>Medico</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="select-date-field form-input">
+                <mat-label>Datas Disponiveis</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="select-hour-field form-input">
+                <mat-label>Horários Disponiveis</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                        {{food.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-buttons">
+            <button mat-button class="form-button cancel-button" (click)="closeDialog()">Cancelar</button>
+            <button mat-flat-button color="success" class="form-button confirm-button">Confirmar</button>
+        </div>
+    </div>
+</div>

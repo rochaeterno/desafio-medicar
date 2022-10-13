@@ -15,7 +15,10 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
 import { HomeScreenHeaderComponent } from './home-screen-header/home-screen-header.component';
 import { ListConsultasComponent } from './list-consultas/list-consultas.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CreateConsultaFormComponent } from './create-consulta-form/create-consulta-form.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import {MatTableModule} from '@angular/material/table';
     SignupFormComponent,
     HomeScreenComponent,
     HomeScreenHeaderComponent,
-    ListConsultasComponent
+    ListConsultasComponent,
+    CreateConsultaFormComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,9 @@ import {MatTableModule} from '@angular/material/table';
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
