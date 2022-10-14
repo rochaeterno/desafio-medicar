@@ -1,10 +1,10 @@
 <div class="form-container">
     <p class="form-title">Crie sua conta</p>
-    <form #signupForm="ngForm" (ngSubmit)="onSubmit(onSubmit)">
+    <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-fields">
             <mat-form-field appearance="outline" class="name-field form-input">
                 <mat-label>Nome</mat-label>
-                <input matInput [(ngModel)]="signup.name" name="name" placeholder="Nome" required>
+                <input matInput [(ngModel)]="signup.username" name="name" placeholder="Nome" required>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mail-field form-input">
                 <mat-label>Email</mat-label>
@@ -23,7 +23,7 @@
         </div>
         <div class="form-buttons">
             <button mat-button [routerLink]="['/']" class="form-button cancel-button">Cancelar</button>
-            <button mat-flat-button color="success" class="form-button confirm-button" [disabled]="signupForm.invalid">Confirmar</button>
+            <button mat-flat-button type="submit" color="success" class="form-button confirm-button" [disabled]="signupForm.invalid">Confirmar</button>
         </div>
     </form>
 </div>
