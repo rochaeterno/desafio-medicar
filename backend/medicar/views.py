@@ -17,6 +17,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class ConsultaViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
     queryset = Consulta.objects.all()
     serializer_class = ConsultaSerializer
 
