@@ -1,0 +1,37 @@
+.screen-container {
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.screen-content {
+    width: 47vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+// Breakpoint de laptop de tela pequena
+@media screen and (max-width: 1024px) {
+    .screen-content {
+        width: 70vw;
+    }
+}
+
+// Breakpoint de tablet
+@media screen and (max-width: 768px) {
+    .screen-content {
+        width: 80vw;
+    }
+}
+
+// Breakpoint de celular
+@media screen and (max-width: 450px) {
+    .screen-content {
+        width: 100vw !important;
+        margin-left: 4rem;
+        margin-right: 4rem;
+    }
+}

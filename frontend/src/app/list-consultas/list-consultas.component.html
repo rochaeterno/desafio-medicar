@@ -1,0 +1,57 @@
+<div class="list-container">
+    <div class="mat-elevation-z2 list-content">
+        <div class="table-header">
+            <div class="table-title">
+                Consulta Clínica
+            </div>
+            <div class="button-container">
+                <button mat-flat-button color="success" class="form-button primary-button create-consulta-button" (click)='openCreateConsultaDialog()'>
+                    <mat-icon matSuffix>add</mat-icon>
+                    <span class="form-button-text">Nova Consulta</span>
+                </button>
+            </div>
+        </div>
+        <div class="table-container">
+            <table mat-table [dataSource]="consultas">
+                <!-- Coluna de especialidades -->
+                <ng-container matColumnDef="Especialidade">
+                    <th mat-header-cell *matHeaderCellDef> Especialidade </th>
+                    <td mat-cell *matCellDef="let element"> {{element.medico.especialidade.nome}} </td>
+                </ng-container>
+
+                <!-- Coluna de nome do medico -->
+                <ng-container matColumnDef="Profissional">
+                    <th mat-header-cell *matHeaderCellDef> Profissional </th>
+                    <td mat-cell *matCellDef="let element"> {{element.medico.nome}} </td>
+                </ng-container>
+
+                <!-- Coluna de data -->
+                <ng-container matColumnDef="Data">
+                    <th mat-header-cell *matHeaderCellDef> Data </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dia}} </td>
+                </ng-container>
+
+                <!-- Coluna de hora -->
+                <ng-container matColumnDef="Hora">
+                    <th mat-header-cell *matHeaderCellDef> Hora </th>
+                    <td mat-cell *matCellDef="let element"> {{element.horario}} </td>
+                </ng-container>
+
+                <!-- Coluna de ações -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-button class="form-button secondary-button delete-consulta-button" [swal]="{ 
+                            icon: 'error',title: 'Você tem certeza que deseja desmarcar esta consulta?'}" (confirm)="deletarConsulta(element.id)">
+                            <mat-icon matSuffix>close</mat-icon>
+                            <span class="form-button-text">Desmarcar</span>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

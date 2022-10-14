@@ -1,0 +1,61 @@
+.dialog-container {
+    min-width: 35vw;
+}
+
+.form-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.cancel-button {
+    color: rgba(73, 180, 187, 1);
+}
+
+.confirm-button {
+    background-color: rgba(73, 180, 187, 1);
+    color: #FFFFFF;
+}
+
+.mat-form-field {
+    margin-bottom: -0.8rem;
+}
+
+.form-button {
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 40%;
+}
+
+// Breakpoint de laptop de tela pequena
+@media screen and (max-width: 1024px) {
+    .dialog-container {
+        min-width: 45vw;
+    }
+}
+
+// Breakpoint de tablet
+@media screen and (max-width: 768px) {
+    .dialog-container {
+        min-width: 55vw;
+    }
+}
+
+// Breakpoint de celular
+@media screen and (max-width: 500px) {
+    .dialog-container {
+        min-width: 70vw;
+    }
+}
+
+// Breakpoint de celular muito pequeno
+@media screen and (max-width: 350px) {
+    .dialog-container {
+        min-width: 70vw;
+    }
+    .form-button {
+        font-size: 1.1rem;
+        font-weight: 700;
+        width: 50%;
+    }
+}

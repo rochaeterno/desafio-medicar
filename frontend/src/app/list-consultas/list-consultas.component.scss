@@ -1,0 +1,60 @@
+table {
+    width: 100%;
+}
+
+.list-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.table-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.table-title {
+    position: absolute;
+    left: 0px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-left: 0.6rem;
+}
+
+.button-container {
+    position: absolute;
+    right: 0px;
+}
+
+tr.mat-footer-row,
+tr.mat-row {
+    height: 2.5rem !important;
+}
+
+.mat-row:nth-child(even) {
+    background-color: #F8F8F8;
+}
+
+.mat-row:nth-child(odd) {
+    background-color: white;
+}
+
+.delete-consulta-button {
+    float: right;
+}
+
+// Breakpoint de celular
+@media screen and (max-width: 500px) {
+    .form-button-text {
+        display: none;
+    }
+    table {
+        width: 90vw;
+    }
+}

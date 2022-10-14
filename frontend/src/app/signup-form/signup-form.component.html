@@ -1,0 +1,29 @@
+<div class="form-container">
+    <p class="form-title">Crie sua conta</p>
+    <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-fields">
+            <mat-form-field appearance="outline" class="name-field form-input">
+                <mat-label>Nome</mat-label>
+                <input matInput [(ngModel)]="signup.username" name="name" placeholder="Nome" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mail-field form-input">
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="signup.email" name="email" placeholder="Email" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="password-field form-input">
+                <mat-label>Senha</mat-label>
+                <input matInput [(ngModel)]="signup.password" name="password" type="password" placeholder="Senha" required>
+                <mat-icon matSuffix>visibility</mat-icon>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="password-confirm-field form-input">
+                <mat-label>Confirmar Senha</mat-label>
+                <input matInput [(ngModel)]="signup.password_confirm" name="password-confirm" type="password" placeholder="Confirmar Senha" required>
+                <mat-icon matSuffix>visibility</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="form-buttons">
+            <button mat-button [routerLink]="['/']" class="form-button cancel-button">Cancelar</button>
+            <button mat-flat-button type="submit" color="success" class="form-button confirm-button" [disabled]="signupForm.invalid">Confirmar</button>
+        </div>
+    </form>
+</div>
