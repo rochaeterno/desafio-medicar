@@ -22,7 +22,7 @@
             </mat-form-field>
         </div>
         <div class="form-buttons">
-            <button mat-button class="form-button cancel-button">Cancelar</button>
+            <button mat-button [routerLink]="['/']" class="form-button cancel-button">Cancelar</button>
             <button mat-flat-button color="success" class="form-button confirm-button" [disabled]="signupForm.invalid">Confirmar</button>
         </div>
     </form>

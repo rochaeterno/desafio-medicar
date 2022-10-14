@@ -13,7 +13,7 @@
             <mat-checkbox class="remember-checkbox"> Lembrar minha senha </mat-checkbox>
         </div>
         <div class="form-buttons">
-            <button mat-button class="form-button create-account-button">Criar Conta</button>
+            <button mat-button [routerLink]="['/signup']" class="form-button create-account-button">Criar Conta</button>
             <button mat-flat-button color="success" class="form-button login-button" [disabled]="loginForm.invalid">Acessar</button>
         </div>
     </form>
