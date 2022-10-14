@@ -21,8 +21,13 @@ export class SignupFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.createUserService.criarUsuario(this.signup).subscribe((res) => {
-      this.router.navigate(['/'])
-    })
+    if (this.signup.password != this.signup.password_confirm) {
+      console.log('A senhas inseridas devem ser iguais.');
+      return;
+    } else {
+      this.createUserService.criarUsuario(this.signup).subscribe((res) => {
+        this.router.navigate(['/'])
+      })
+    }
   }
 }
