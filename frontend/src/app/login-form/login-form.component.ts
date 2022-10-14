@@ -17,8 +17,7 @@ export class LoginFormComponent implements OnInit {
     this.login_data = {}
   }
 
-  onSubmit(login_data: any) {
-    console.log(login_data)
+  onSubmit() {
     this.authService.login(this.login_data).subscribe((token) => {
       this.authService.token = token;
       this.router.navigate(['home']);

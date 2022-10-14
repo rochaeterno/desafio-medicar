@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { SignupFormServiceService } from './signup-form-service.service'
 
 @Component({
   selector: 'app-signup-form',
@@ -8,14 +11,18 @@ import { Component, OnInit } from '@angular/core';
 export class SignupFormComponent implements OnInit {
   signup: any;
 
-  constructor() { }
+  constructor(
+    private createUserService: SignupFormServiceService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.signup = {}
   }
 
-  onSubmit(data: any) {
-    console.log(data)
+  onSubmit() {
+    this.createUserService.criarUsuario(this.signup).subscribe((res) => {
+      this.router.navigate(['/'])
+    })
   }
-
 }
