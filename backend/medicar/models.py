@@ -4,6 +4,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+from datetime import date, datetime
 
 
 class Especialidade(models.Model):
@@ -70,14 +71,23 @@ class Agenda(models.Model):
     def clean(self):
         medico_conflitante = Agenda.objects.filter(
             dia=self.dia, medico_id=self.medico.id).last()
+
+        horarios_cadastrados = Horario.objects.all()
+
+        if self.id is None and self.dia < date.today():
+            raise ValidationError(
+                "Não é possivel cadastrar uma agenda retroativamente.")
+
         if self.id is None and medico_conflitante is not None:
             raise ValidationError(
                 "O medico selecionado já possui uma agenda cadastrada para o dia selecionado.")
 
 
 class AgendaHorario(models.Model):
-    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE)
-    horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
+    agenda = models.ForeignKey(
+        Agenda, on_delete=models.CASCADE, related_name='through_model')
+    horario = models.ForeignKey(
+        Horario, on_delete=models.CASCADE, related_name='through_model')
     _esta_ocupado = models.BooleanField(default=False)
 
 
