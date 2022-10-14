@@ -68,4 +68,14 @@ body {
     color: rgba(73, 180, 187, 1);
 }
 
+.swal2-actions {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+}
+
+.swal2-confirm.swal2-styled {
+    width: 300% !important;
+    background-color: rgba(73, 180, 187, 1) !important;
+}
+
 // fim do form-medicar

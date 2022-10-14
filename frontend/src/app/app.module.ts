@@ -25,7 +25,7 @@ import { ListConsultasService } from './list-consultas/list-consultas.service';
 import { CreateConsultaFormServiceService } from './create-consulta-form/create-consulta-form-service.service';
 import { AuthService } from './auth-service/auth.service';
 import { SignupScreenComponent } from './signup-screen/signup-screen.component';
-
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -54,6 +54,7 @@ import { SignupScreenComponent } from './signup-screen/signup-screen.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     ListConsultasService,
