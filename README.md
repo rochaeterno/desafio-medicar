@@ -54,11 +54,6 @@ Tudo pronto com os servidores iniciados e funcionando em seu modo default você 
 Caso seja sua primeira vez acessando o admin do backend se faz necessario a criação do superuser que por sua vez tera permiss~eos de acesso para cadastra medicos, agendas e especialidades. para fazer-lo basta executar os seguintes comando no backend con o env do python ativado:
 
 ```
-Rodando o projeto (Windows - Powershell)
   python manage.py createsuperuser
-  
-Rodando o projeto (Linux)
-  python manage.py createsuperuser
-  
 ```
 Em seguida lhe será solicitado que você digite um username, email e senha digite-os e você já estará pronto para usar nosso sistema.
