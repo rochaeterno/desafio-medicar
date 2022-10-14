@@ -1,6 +1,7 @@
 from email.policy import default
 from enum import unique
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -41,7 +42,8 @@ class Medico(models.Model):
 
 
 class Horario(models.Model):
-    horario = models.TimeField(auto_now=False, auto_now_add=False, unique=True,)
+    horario = models.TimeField(
+        auto_now=False, auto_now_add=False, unique=True,)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -68,6 +70,13 @@ class Agenda(models.Model):
 
     def __str__(self):
         return str(self.dia)
+
+    def clean(self):
+        medico_conflitante = Agenda.objects.filter(
+            dia=self.dia, medico_id=self.medico.id).last()
+        if medico_conflitante is not None:
+            raise ValidationError(
+                "O medico selecionado já possui uma agenda cadastrada para o dia selecionado.")
 
 
 class AgendaHorario(models.Model):
