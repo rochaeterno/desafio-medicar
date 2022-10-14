@@ -72,8 +72,6 @@ class Agenda(models.Model):
         medico_conflitante = Agenda.objects.filter(
             dia=self.dia, medico_id=self.medico.id).last()
 
-        horarios_cadastrados = Horario.objects.all()
-
         if self.id is None and self.dia < date.today():
             raise ValidationError(
                 "Não é possivel cadastrar uma agenda retroativamente.")
@@ -89,6 +87,13 @@ class AgendaHorario(models.Model):
     horario = models.ForeignKey(
         Horario, on_delete=models.CASCADE, related_name='through_model')
     _esta_ocupado = models.BooleanField(default=False)
+
+    def clean(self):
+        trought_table = self
+
+        if self.id is None and trought_table.agenda.dia == date.today() and trought_table.horario.horario < datetime.now().time():
+            raise ValidationError(
+                "Não é possivel horario passado em uma agenda.")
 
 
 class Consulta(models.Model):
