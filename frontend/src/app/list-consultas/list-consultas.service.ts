@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Consulta } from '../models/consulta.model';
 
 @Injectable({
@@ -25,7 +24,6 @@ export class ListConsultasService {
   set consultas(consultas: Consulta[]) {
     this._consultas.next(consultas);
   }
-
 
   getConsultas(): Observable<Consulta[]> {
     return this.http.get<Consulta[]>(`${this.baseUrl}/consultas/`);

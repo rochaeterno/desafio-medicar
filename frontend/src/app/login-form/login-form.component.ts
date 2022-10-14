@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../auth-service/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -6,16 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
-  login: any;
+  login_data: any;
 
-  constructor() { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.login = {}
+    this.login_data = {}
   }
 
-  onSubmit(data: any) {
-    console.log(data)
+  onSubmit(login_data: any) {
+    console.log(login_data)
+    this.authService.login(this.login_data).subscribe((token) => {
+      this.authService.token = token;
+      this.router.navigate(['home']);
+    })
   }
 
 }
