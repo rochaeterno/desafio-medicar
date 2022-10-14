@@ -1,20 +1,20 @@
 <div class="form-container">
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit(onSubmit)">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
         <div class="form-fields">
             <mat-form-field appearance="outline" class="username-field form-input">
                 <mat-label>Email ou Login</mat-label>
-                <input matInput [(ngModel)]="login.username" name="username" placeholder="Email ou Login" required>
+                <input matInput [(ngModel)]="login_data.username" name="username" placeholder="Email ou Login" required>
             </mat-form-field>
             <mat-form-field appearance="outline" class="password-field form-input">
                 <mat-label>Senha</mat-label>
-                <input matInput [(ngModel)]="login.password" name="password" name="password" type="password" placeholder="Senha" required>
+                <input matInput [(ngModel)]="login_data.password" name="password" name="password" type="password" placeholder="Senha" required>
                 <mat-icon matSuffix>visibility</mat-icon>
             </mat-form-field>
             <mat-checkbox class="remember-checkbox"> Lembrar minha senha </mat-checkbox>
         </div>
         <div class="form-buttons">
-            <button mat-button class="form-button create-account-button">Criar Conta</button>
-            <button mat-flat-button color="success" class="form-button login-button" [disabled]="loginForm.invalid">Acessar</button>
+            <button mat-button [routerLink]="['/signup']" class="form-button create-account-button">Criar Conta</button>
+            <button mat-flat-button type="submit" color="success" class="form-button login-button" [disabled]="loginForm.invalid">Acessar</button>
         </div>
     </form>
 </div>

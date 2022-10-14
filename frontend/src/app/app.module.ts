@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListConsultasService } from './list-consultas/list-consultas.service';
 import { CreateConsultaFormServiceService } from './create-consulta-form/create-consulta-form-service.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignupScreenComponent } from './signup-screen/signup-screen.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeScreenComponent,
     HomeScreenHeaderComponent,
     ListConsultasComponent,
-    CreateConsultaFormComponent
+    CreateConsultaFormComponent,
+    SignupScreenComponent
   ],
   imports: [
     BrowserModule,

@@ -15,11 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from medicar.views import ConsultaViewSet, AgendaListAPIView, EspecialidadesListAPIView, MedicosListAPIView
+from medicar.views import UserViewSet, ConsultaViewSet, AgendaListAPIView, EspecialidadesListAPIView, MedicosListAPIView
 from rest_framework import routers
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 router = routers.DefaultRouter()
 router.register(r'consultas', ConsultaViewSet)
+router.register('user', UserViewSet, basename='user')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +32,10 @@ urlpatterns = [
     path('agendas/', AgendaListAPIView.as_view(), name='agenda-list'),
     path('especialidades/', EspecialidadesListAPIView.as_view(),
          name='especialidades-list'),
-    path('medicos/', MedicosListAPIView.as_view(), name='medicos-list')
+    path('medicos/', MedicosListAPIView.as_view(), name='medicos-list'),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
+
+urlpatterns +=router.urls

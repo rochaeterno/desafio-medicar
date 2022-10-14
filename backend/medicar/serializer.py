@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.forms.models import model_to_dict
 from datetime import date, datetime
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
@@ -8,8 +9,30 @@ from medicar.models import Especialidade, Medico, Horario, Agenda, Consulta, Age
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['id', 'username', 'email']
+        model = get_user_model()
+        fields = "__all__"
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+
+    def validate(self, data):
+        def validate_email(data):
+            try:
+                User.objects.get(email=data['email'])
+                raise serializers.ValidationError(
+                    {'email': 'Um usuário com este email já existe.'})
+            except User.DoesNotExist:
+                pass
+
+        validate_email(data)
+        return data
+
+    def save(self,):
+        user = User(
+            username=self.validated_data['email'], email=self.validated_data['email'])
+        user.set_password(self.validated_data['password'])
+        user.save()
+        return user
 
 
 class EspecialidadeSerializer(serializers.ModelSerializer):

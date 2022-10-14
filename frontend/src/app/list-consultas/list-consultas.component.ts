@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CreateConsultaFormComponent } from '../create-consulta-form/create-consulta-form.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,6 +13,7 @@ import { ListConsultasService } from './list-consultas.service';
 export class ListConsultasComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
+    private router: Router,
     private listService: ListConsultasService,
   ) { }
 
@@ -45,5 +47,9 @@ export class ListConsultasComponent implements OnInit {
     this.listService.deleteConsulta(consulta_id).subscribe(() => {
       this.listAllConsultas()
     });
+  }
+
+  logout() {
+    this.router.navigate(['']);
   }
 }

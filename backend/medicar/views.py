@@ -1,12 +1,19 @@
 from django.db.models import Q
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from datetime import date, datetime
 from medicar.models import Consulta, Agenda, AgendaHorario, Especialidade, Medico
-from medicar.serializer import ConsultaSerializer, AgendaSerializer, ConsultaStoreSerializer, ConsultaDestroySerializer, EspecialidadeSerializer, MedicoSerializer
+from medicar.serializer import UserSerializer, ConsultaSerializer, AgendaSerializer, ConsultaStoreSerializer, ConsultaDestroySerializer, EspecialidadeSerializer, MedicoSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from medicar.filtersets import AgendaFilter, MedicoFilter
 
+
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+    queryset = get_user_model().objects.all()
 
 class ConsultaViewSet(viewsets.ModelViewSet):
     queryset = Consulta.objects.all()
