@@ -15,6 +15,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = get_user_model().objects.all()
 
+
 class ConsultaViewSet(viewsets.ModelViewSet):
     queryset = Consulta.objects.all()
     serializer_class = ConsultaSerializer
@@ -67,7 +68,7 @@ class ConsultaViewSet(viewsets.ModelViewSet):
 
 class AgendaListAPIView(generics.ListAPIView):
     queryset = Agenda.objects.filter(
-        dia__gte=date.today(), _esta_lotada=False
+        dia__gte=date.today()
     ).order_by('dia')
     serializer_class = AgendaSerializer
     filter_backends = [DjangoFilterBackend]

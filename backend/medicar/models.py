@@ -64,17 +64,13 @@ class Agenda(models.Model):
         blank=False
     )
     horarios = models.ManyToManyField(Horario, through='AgendaHorario',)
-    _esta_lotada = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return str(self.dia)
 
     def clean(self):
         medico_conflitante = Agenda.objects.filter(
             dia=self.dia, medico_id=self.medico.id).last()
-        if medico_conflitante is not None:
+        if self.id is None and medico_conflitante is not None:
             raise ValidationError(
                 "O medico selecionado já possui uma agenda cadastrada para o dia selecionado.")
 

@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.forms.models import model_to_dict
+import json
 from datetime import date, datetime
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from medicar.models import Especialidade, Medico, Horario, Agenda, Consulta, AgendaHorario
@@ -69,6 +70,21 @@ class AgendaHorarioSerializer(serializers.ModelSerializer):
         return (obj.horario.horario)
 
 
+class FilterAgendaListSerializer(serializers.ListSerializer):
+    def to_representation(self, data):
+        agendas = data.filter(dia__gte=date.today())
+        for agenda in agendas:
+            horarios_livres = 0
+            for horario in agenda.agendahorario_set.all():
+                if horario._esta_ocupado == False:
+                    if agenda.dia > date.today() or horario.horario.horario >= datetime.now().time() and agenda.dia == date.today():
+                        horarios_livres += 1
+            if horarios_livres == 0 or agenda.horarios.count() < 1:
+                agendas = agendas.exclude(dia=agenda.dia)
+
+        return super(FilterAgendaListSerializer, self).to_representation(agendas)
+
+
 class AgendaSerializer(serializers.ModelSerializer):
     horarios = serializers.SerializerMethodField()
     medico = MedicoSerializer(many=False, read_only=True)
@@ -76,6 +92,7 @@ class AgendaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Agenda
+        list_serializer_class = FilterAgendaListSerializer
         fields = ['id', 'medico', 'dia',
                   'horarios', 'created_at', 'updated_at']
 
